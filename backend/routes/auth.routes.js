@@ -1,6 +1,7 @@
 import express from "express";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+import checkToken from "../middlewares/CheckToken.js";
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
@@ -38,7 +39,7 @@ router.post("/login", async (req, res) => {
     return res.json({ msg: "Password is not correct", login: false });
   }
   // const pass = "2324@abc";
-  const token = jwt.sign({ id: existingUser._id }, "pass@123"); // to generate tokens
+  const token = jwt.sign({ userId: existingUser._id }, "pass@123"); // to generate tokens
   console.log(token);
 
   res.cookie("token", token, {
@@ -49,4 +50,13 @@ router.post("/login", async (req, res) => {
   return res.status(200).json({ msg: "Login is Successfully", login: true });
 });
 
+
+router.get('/me', checkToken, async (req, res) => {
+  console.log(req.user);
+  const user = await User.findById(req.user);
+  console.log(user);
+
+  return res.status(200).json({ user })
+
+})
 export default router;

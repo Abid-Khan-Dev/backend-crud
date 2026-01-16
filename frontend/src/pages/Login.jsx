@@ -41,7 +41,7 @@ function Login() {
                         <label htmlFor='password'>Password</label>
                         <input
                             id='password'
-                            type="text"
+                            type="password"
                             value={password}
                             className='py-2 px-3 bg-gray-200'
                             onChange={function (event) {

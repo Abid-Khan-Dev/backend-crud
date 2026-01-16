@@ -9,7 +9,7 @@ const checkToken = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, "pass@123"); // to reverse token to its original form
     console.log(decoded, "decoded");
-    req.user = decoded.id;
+    req.user = decoded.userId;
     next(); /// move to next function
   } catch (error) {
     console.log(error.message);

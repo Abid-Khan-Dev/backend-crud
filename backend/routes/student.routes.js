@@ -7,7 +7,7 @@ const router = express.Router();
 // get All Students2
 //  /students
 router.get("/", checkToken, async (req, res) => {
-  // console.log(req.body);
+  console.log(req.user);
   const students = await Student.find();
   return res.status(200).json({ students });
 });
@@ -30,7 +30,7 @@ router.post("/create", checkToken, async (req, res) => {
 
 //  /students/update
 router.post("/update", checkToken, async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { Id, name, fName, rollNo } = req.body;
   const updatedStudents = await Student.findByIdAndUpdate(
     Id,

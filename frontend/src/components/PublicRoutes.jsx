@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react'
 import api from '../services/api';
 import { Navigate, Outlet } from 'react-router-dom';
 
-function ProtectedRoutes() {
+function PublicRoutes() {
     const [ok, setOk] = useState(null);
-    const [user, setUser] = useState(null)
+
     const getStudents = async () => {
         try {
-            const res = await api.get('/me')
+            const res = await api.get('/students')
             console.log(res);
             if (res.status === 200) {
                 setOk(true)
-                setUser(res.data.user);
             }
         } catch (error) {
             console.log(error);
@@ -24,10 +23,10 @@ function ProtectedRoutes() {
     }, [])
 
     if (ok === null) return <p>Checking</p>
-    if (!ok) return <Navigate to='/' />
-    if (ok) return <Outlet />
+    if (!ok) return <Outlet />
+    if (ok) return <Navigate to='/home' />
 
 
 }
 
-export default ProtectedRoutes
+export default PublicRoutes

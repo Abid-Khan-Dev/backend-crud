@@ -1,13 +1,26 @@
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import api from "../services/api";
+import { useEffect } from "react";
 
 export default function Layout() {
+
+    const [user, setUser] = useState(null)
+    async function getMe() {
+        const res = await api.get('/me')
+        setUser(res.data.user)
+    }
+    useEffect(() => {
+        getMe()
+    }, [])
     return (
         <div className="h-screen flex flex-col">
 
             {/* Top Bar */}
             <header className="h-14 bg-slate-900 text-white flex items-center justify-between px-6">
                 <h1 className="font-bold text-lg">My App</h1>
-                <span className="text-sm">Admin</span>
+                <span className="text-sm capitalize">{user?.name}</span>
+                {/* <span className="text-sm">Admin</span> */}
             </header>
 
             {/* Body */}

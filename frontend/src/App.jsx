@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import ProtectedRoutes from './components/ProtectedRoutes'
 import Layout from './components/Layout'
 import Test from './pages/Test'
+import PublicRoutes from './components/PublicRoutes'
 
 function App() {
   return (
@@ -14,10 +15,11 @@ function App() {
         <Routes>
 
           {/* Public Routes here */}
-          <Route path='/' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
+          <Route element={<PublicRoutes />}>
+            <Route path='/' element={<Login />} />
+            <Route path='/signup' element={<Signup />} />
 
-
+          </Route>
           {/* Protected Routes here */}
           <Route element={<ProtectedRoutes />}>
             <Route element={<Layout />}>
